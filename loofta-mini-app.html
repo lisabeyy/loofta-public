@@ -1,286 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Loofta Meme Madness</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #FF4500, #FF6347);
-            color: white;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #ff4500, #ff6347);
+        color: white;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
+      h1 {
+        font-size: 2.5rem; /* Adjusted size for better visibility */
+        text-align: center;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        line-height: 1.5; /* Better spacing for two lines */
+        margin-top: 100px; /* Adjusted for better positioning */
+      }
+
+      #score {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #1a1a1a;
+        font-size: 1.5rem;
+        padding: 10px 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+      }
+
+      .interactive-container {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 200px); /* Adjusted to fit the title */
+        overflow: hidden;
+      }
+
+      #footerMessage {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5rem;
+        color: #ffffff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        white-space: nowrap; /* Ensures the text stays on one line */
+        text-align: center;
+      }
+
+      .floating-item {
+        position: absolute;
+        width: 80px; /* Larger size for better visibility */
+        height: 80px;
+        border-radius: 50%;
+        animation: float linear infinite;
+        cursor: pointer;
+        transition: transform 0.3s;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+      }
+
+      .floating-item:hover {
+        transform: scale(1.2);
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(-10px);
+          left: calc(100% * var(--start-x));
+        }
+        100% {
+          transform: translateY(110vh);
+          left: calc(100% * var(--end-x));
+        }
+      }
+
+      #poopMessage {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 8rem;
+        color: #ff6347;
+        text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
+        display: none;
+        z-index: 1000;
+      }
+
+      #funnyText {
+        position: fixed;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.8rem;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        text-align: center; /* Ensures the text is centered */
+        display: none;
+        z-index: 1000;
+        white-space: nowrap; /* Keeps the text on the same line */
+      }
+
+      #specialAnimation {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2.8rem;
+        color: #ffd700;
+        text-shadow: 0 0 20px #ffd700, 0 0 40px #ff4500;
+        display: none;
+        z-index: 1000;
+        white-space: nowrap; /* Ensures the text stays on one line */
+        text-align: center; /* Center-aligns the text */
+      }
+      /* Media Query for Mobile Screens */
+      @media (max-width: 600px) {
         h1 {
-            font-size: 2.5rem; /* Adjusted size for better visibility */
-            text-align: center;
-            color: #FFD700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-            line-height: 1.5; /* Better spacing for two lines */
-            margin-top: 100px; /* Adjusted for better positioning */
+          font-size: 2rem;
+          margin-top: 80px;
         }
 
         #score {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #1a1a1a;
-            font-size: 1.5rem;
-            padding: 10px 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            font-weight: bold;
-        }
-
-        .interactive-container {
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 200px); /* Adjusted to fit the title */
-            overflow: hidden;
+          font-size: 1.2rem;
+          padding: 8px 16px;
         }
 
         .floating-item {
-            position: absolute;
-            width: 80px; /* Larger size for better visibility */
-            height: 80px;
-            border-radius: 50%;
-            animation: float linear infinite;
-            cursor: pointer;
-            transition: transform 0.3s;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
-        }
-
-        .floating-item:hover {
-            transform: scale(1.2);
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(-10px);
-                left: calc(100% * var(--start-x));
-            }
-            100% {
-                transform: translateY(110vh);
-                left: calc(100% * var(--end-x));
-            }
+          width: 70px; /* Slightly smaller for mobile */
+          height: 70px;
         }
 
         #poopMessage {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 8rem;
-            color: #FF6347;
-            text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
-            display: none;
-            z-index: 1000;
+          font-size: 6.5rem;
         }
 
         #funnyText {
-            position: fixed;
-            top: 70%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.8rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            display: none;
-            z-index: 1000;
+          font-size: 1.5rem;
         }
 
         #specialAnimation {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2.8rem;
-            color: #FFD700;
-            text-shadow: 0 0 20px #FFD700, 0 0 40px #FF4500;
-            display: none;
-            z-index: 1000;
+          font-size: 2.5rem;
         }
 
-        /* Media Query for Mobile Screens */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
-                margin-top: 80px;
-            }
-
-            #score {
-                font-size: 1.2rem;
-                padding: 8px 16px;
-            }
-
-            .floating-item {
-                width: 70px; /* Slightly smaller for mobile */
-                height: 70px;
-            }
-
-            #poopMessage {
-                font-size: 6.5rem;
-            }
-
-            #funnyText {
-                font-size: 1.5rem;
-            }
-
-            #specialAnimation {
-                font-size: 2.5rem;
-            }
+        #footerMessage {
+          font-size: 1.2rem;
         }
+      }
     </style>
-</head>
-<body>
-    <h1>
-        Loofta Meme<br>Madness!
-    </h1>
+  </head>
+  <body>
+    <h1>Loofta Meme<br />Madness!</h1>
     <div id="score">Score: 0</div>
     <div id="poopMessage">💩</div>
     <div id="funnyText">Oh shit, that sucks!</div>
     <div id="specialAnimation">✨ +2 Points! ✨</div>
     <div class="interactive-container" id="interactive-container"></div>
+    <div id="footerMessage">Collect TON Memecoins 😊</div>
 
     <!-- Background Song -->
     <audio id="backgroundAudio" autoplay loop>
-        <source src="https://raw.githubusercontent.com/lisabeyy/loofta-public/3b8b39103e4ed810c39d4b28286b85e2a3a42c5d/The%20Future's%20Bright-%20loofta.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+      <source
+        src="https://github.com/lisabeyy/loofta-public/raw/refs/heads/main/The%20Future's%20Bright-%20loofta.mp3"
+        type="audio/mpeg"
+      />
+      Your browser does not support the audio element.
     </audio>
 
     <script>
-        const items = [
-            "https://pbs.twimg.com/profile_images/1859883438956052480/LOFH3WgY_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1861350877304373248/2hzc5G88_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1863383056645562368/BCVS1OXl_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1833359559534202880/9T7XBVaO_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1780576417346125824/_vLghwko_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1850990661211660288/9zNQFosZ_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1852002571033911296/WVWkRqTA_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1780728422508998656/XtWwuV1M_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1846515389070778368/IpqGGZq3_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1864643012011458560/aMLz6Bsl_400x400.jpg",
-        ];
+      const items = [
+        "https://pbs.twimg.com/profile_images/1859883438956052480/LOFH3WgY_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1861350877304373248/2hzc5G88_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1863383056645562368/BCVS1OXl_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1833359559534202880/9T7XBVaO_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1780576417346125824/_vLghwko_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1850990661211660288/9zNQFosZ_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1852002571033911296/WVWkRqTA_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1780728422508998656/XtWwuV1M_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1846515389070778368/IpqGGZq3_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1864643012011458560/aMLz6Bsl_400x400.jpg",
+      ];
 
-        const specialItem = "https://appincoin.fra1.cdn.digitaloceanspaces.com/uploads/1733704817817-0ho047.png";
+      const specialItem =
+        "https://appincoin.fra1.cdn.digitaloceanspaces.com/uploads/1733704817817-0ho047.png";
 
-        const badItems = [
-            "https://pbs.twimg.com/profile_images/1857526455221063680/YsaPg5fN_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1773538965674688512/dVZdh1SM_400x400.jpg",
-            "https://pbs.twimg.com/profile_images/1600956334635098141/ZSzYTrHf_400x400.jpg",
-        ];
+      const badItems = [
+        "https://pbs.twimg.com/profile_images/1857526455221063680/YsaPg5fN_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1773538965674688512/dVZdh1SM_400x400.jpg",
+        "https://pbs.twimg.com/profile_images/1600956334635098141/ZSzYTrHf_400x400.jpg",
+      ];
 
-        const container = document.getElementById("interactive-container");
-        const scoreDisplay = document.getElementById("score");
-        const poopMessage = document.getElementById("poopMessage");
-        const funnyText = document.getElementById("funnyText");
-        const specialAnimation = document.getElementById("specialAnimation");
-        let score = 0;
-        let speed = 10;
-        let activeItems = 0;
-        const maxItems = 20;
+      const container = document.getElementById("interactive-container");
+      const scoreDisplay = document.getElementById("score");
+      const poopMessage = document.getElementById("poopMessage");
+      const funnyText = document.getElementById("funnyText");
+      const specialAnimation = document.getElementById("specialAnimation");
+      let score = 0;
+      let speed = 10;
+      let activeItems = 0;
+      const maxItems = 20;
+      let itemGenerationInterval; // Declare variable for item generation interval
 
-        function createFloatingItem() {
-            if (activeItems >= maxItems) return;
+      function createFloatingItem() {
+        if (activeItems >= maxItems) return;
 
-            const item = document.createElement("img");
-            const randomChance = Math.random();
-            let itemType = "good";
+        const item = document.createElement("img");
+        const randomChance = Math.random();
+        let itemType = "good";
 
-            if (randomChance < 0.1) {
-                item.src = specialItem;
-                itemType = "special";
-            } else if (randomChance < 0.25) {
-                item.src = badItems[Math.floor(Math.random() * badItems.length)];
-                itemType = "bad";
-            } else {
-                item.src = items[Math.floor(Math.random() * items.length)];
-            }
-
-            item.className = "floating-item";
-            item.dataset.type = itemType;
-            item.style.setProperty("--start-x", Math.random());
-            item.style.setProperty("--end-x", Math.random());
-            item.style.animationDuration = Math.random() * 2 + speed + "s";
-
-            activeItems++;
-            item.addEventListener("animationend", () => {
-                item.remove();
-                activeItems--;
-            });
-
-            item.addEventListener("click", () => {
-                if (item.dataset.type === "bad") {
-                    showPoop();
-                } else if (item.dataset.type === "special") {
-                    showSpecialAnimation();
-                    updateScore(2);
-                } else {
-                    updateScore(1);
-                }
-                item.remove();
-                activeItems--;
-            });
-
-            container.appendChild(item);
+        if (randomChance < 0.1) {
+          item.src = specialItem;
+          itemType = "special";
+        } else if (randomChance < 0.25) {
+          item.src = badItems[Math.floor(Math.random() * badItems.length)];
+          itemType = "bad";
+        } else {
+          item.src = items[Math.floor(Math.random() * items.length)];
         }
 
-        function showPoop() {
-            poopMessage.style.display = "block";
-            funnyText.style.display = "block";
-            container.innerHTML = ""; // Clear all items
+        item.className = "floating-item";
+        item.dataset.type = itemType;
+        item.style.setProperty("--start-x", Math.random());
+        item.style.setProperty("--end-x", Math.random());
+        item.style.animationDuration = Math.random() * 2 + speed + "s";
 
-            setTimeout(() => {
-                poopMessage.style.display = "none";
-                funnyText.style.display = "none";
-                resetGame();
-            }, 3000);
+        activeItems++;
+        item.addEventListener("animationend", () => {
+          item.remove();
+          activeItems--;
+        });
+
+        item.addEventListener("click", () => {
+          if (item.dataset.type === "bad") {
+            showPoop();
+          } else if (item.dataset.type === "special") {
+            showSpecialAnimation();
+            updateScore(2);
+          } else {
+            updateScore(1);
+          }
+          item.remove();
+          activeItems--;
+        });
+
+        container.appendChild(item);
+      }
+
+      function showPoop() {
+        poopMessage.style.display = "block";
+        funnyText.style.display = "block";
+
+        container.innerHTML = ""; // Clear all items
+        clearInterval(itemGenerationInterval); // Stop new items from appearing
+
+        setTimeout(() => {
+          poopMessage.style.display = "none";
+          funnyText.style.display = "none";
+          resetGame();
+        }, 2000);
+      }
+
+      function showSpecialAnimation() {
+        specialAnimation.style.display = "block";
+        setTimeout(() => {
+          specialAnimation.style.display = "none";
+        }, 1000);
+      }
+
+      function updateScore(points) {
+        score += points;
+        scoreDisplay.textContent = `Score: ${score}`;
+
+        // Increase speed every 5 points
+        if (score % 5 === 0 && speed > 3) {
+          speed -= 1;
         }
+      }
 
-        function showSpecialAnimation() {
-            specialAnimation.style.display = "block";
-            setTimeout(() => {
-                specialAnimation.style.display = "none";
-            }, 1000);
-        }
+      function resetGame() {
+        score = 0;
+        scoreDisplay.textContent = "Score: 0";
+        container.innerHTML = "";
+        activeItems = 0;
+        speed = 10; // Reset speed
 
-        function updateScore(points) {
-            score += points;
-            scoreDisplay.textContent = `Score: ${score}`;
+        // Restart item generation after 3 seconds
+        setTimeout(() => {
+          generateItems();
+        }, 1000);
+      }
 
-            // Increase speed every 5 points
-            if (score % 5 === 0 && speed > 3) {
-                speed -= 1;
-            }
-        }
+      function generateItems() {
+        itemGenerationInterval = setInterval(createFloatingItem, 800);
+      }
 
-        function resetGame() {
-            score = 0;
-            scoreDisplay.textContent = "Score: 0";
-            container.innerHTML = "";
-            activeItems = 0;
-            speed = 10; // Reset speed
-
-            // Restart items after delay
-            setTimeout(() => {
-                generateItems();
-            }, 3000);
-        }
-
-        function generateItems() {
-            setInterval(createFloatingItem, 800);
-        }
-
-        generateItems();
+      generateItems();
     </script>
-</body>
+  </body>
 </html>
